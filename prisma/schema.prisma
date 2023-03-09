@@ -18,6 +18,7 @@ model user {
   email    String
   role     String
   profile  profile[]
+  genre    genre[]
 }
 
 model game {
@@ -32,9 +33,18 @@ model game {
 }
 
 model profile {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   Title       String
   ImageURL    String
-  user        user   @relation(fields: [userProfile], references: [id])
+  user        user    @relation(fields: [userProfile], references: [id])
   userProfile String
+  genre       genre[]
+}
+
+model genre {
+  id        String    @id @default(uuid())
+  Name      String    @unique
+  User      user      @relation(fields: [userGenre], references: [id])
+  profile   profile[]
+  userGenre String
 }
