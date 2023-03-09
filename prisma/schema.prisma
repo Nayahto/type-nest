@@ -18,3 +18,14 @@ model user {
   email    String
   role     String
 }
+
+model game {
+  id                 String @id @default(uuid())
+  Title              String @unique
+  CoverImageUrl      String
+  Description        String
+  Year               Int
+  ImdbScore          Float
+  TrailerYouTubeUrl  String
+  GameplayYouTubeUrl String
+}
