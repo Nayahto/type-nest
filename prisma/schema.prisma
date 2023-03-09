@@ -22,29 +22,30 @@ model user {
 }
 
 model game {
-  id                 String @id @default(uuid())
-  Title              String @unique
+  id                 String  @id @default(uuid())
+  Title              String  @unique
   CoverImageUrl      String
   Description        String
   Year               Int
   ImdbScore          Float
   TrailerYouTubeUrl  String
   GameplayYouTubeUrl String
+  genre              genre[]
+  genreId            String?
 }
 
 model profile {
-  id          String  @id @default(uuid())
+  id          String @id @default(uuid())
   Title       String
   ImageURL    String
-  user        user    @relation(fields: [userProfile], references: [id])
+  user        user   @relation(fields: [userProfile], references: [id])
   userProfile String
-  genre       genre[]
 }
 
 model genre {
-  id        String    @id @default(uuid())
-  Name      String    @unique
-  User      user      @relation(fields: [userGenre], references: [id])
-  profile   profile[]
+  id        String @id @default(uuid())
+  Name      String @unique
+  User      user   @relation(fields: [userGenre], references: [id])
+  game      game[]
   userGenre String
 }
