@@ -18,14 +18,15 @@ export class GameService {
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} game`;
+    return this.Prisma.game.findUnique({ where: { id: id } });
   }
 
   update(id: string, updateGameDto: UpdateGameDto) {
-    return `This action updates a #${id} game`;
+    const gameDataId: Partial<Game> = { ...updateGameDto };
+    return this.Prisma.game.update({ where: { id: id }, data: gameDataId });
   }
 
   remove(id: string) {
-    return `This action removes a #${id} game`;
+    return this.Prisma.game.delete({ where: { id: id } });
   }
 }
