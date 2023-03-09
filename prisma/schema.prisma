@@ -11,12 +11,13 @@ datasource db {
 }
 
 model user {
-  id       String @id @default(uuid())
-  CPF      String @unique
+  id       String    @id @default(uuid())
+  CPF      String    @unique
   Password String
   userName String
   email    String
   role     String
+  profile  profile[]
 }
 
 model game {
@@ -28,4 +29,12 @@ model game {
   ImdbScore          Float
   TrailerYouTubeUrl  String
   GameplayYouTubeUrl String
+}
+
+model profile {
+  id          String @id @default(uuid())
+  Title       String
+  ImageURL    String
+  user        user   @relation(fields: [userProfile], references: [id])
+  userProfile String
 }
