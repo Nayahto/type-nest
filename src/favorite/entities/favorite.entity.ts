@@ -1,1 +1,4 @@
-export class Favorite {}
+export class Favorite {
+  profileId: string;
+  gameId: string[];
+}
