@@ -22,8 +22,8 @@ model user {
 }
 
 model game {
-  id                 String  @id @default(uuid())
-  Title              String  @unique
+  id                 String    @id @default(uuid())
+  Title              String    @unique
   CoverImageUrl      String
   Description        String
   Year               Int
@@ -32,14 +32,17 @@ model game {
   GameplayYouTubeUrl String
   genre              genre[]
   genreId            String?
+  favorite           favorite? @relation(fields: [favoriteId], references: [id])
+  favoriteId         String?
 }
 
 model profile {
-  id          String @id @default(uuid())
+  id          String     @id @default(uuid())
   Title       String
   ImageURL    String
-  user        user   @relation(fields: [userProfile], references: [id])
+  user        user       @relation(fields: [userProfile], references: [id])
   userProfile String
+  favorite    favorite[]
 }
 
 model genre {
@@ -48,4 +51,11 @@ model genre {
   User      user   @relation(fields: [userGenre], references: [id])
   game      game[]
   userGenre String
+}
+
+model favorite {
+  id       String  @id @default(uuid())
+  profile  profile @relation(fields: [favorite], references: [id])
+  game     game[]
+  favorite String
 }
