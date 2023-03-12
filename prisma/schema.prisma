@@ -11,14 +11,12 @@ datasource db {
 }
 
 model user {
-  id       String    @id @default(uuid())
-  CPF      String    @unique
+  id       String @id @default(uuid())
+  CPF      String @unique
   Password String
   userName String
   email    String
   role     String
-  profile  profile[]
-  genre    genre[]
 }
 
 model game {
@@ -37,18 +35,15 @@ model game {
 }
 
 model profile {
-  id          String     @id @default(uuid())
-  Title       String
-  ImageURL    String
-  user        user       @relation(fields: [userProfile], references: [id])
-  userProfile String
-  favorite    favorite[]
+  id       String     @id @default(uuid())
+  Title    String
+  ImageURL String
+  favorite favorite[]
 }
 
 model genre {
   id        String @id @default(uuid())
   Name      String @unique
-  User      user   @relation(fields: [userGenre], references: [id])
   game      game[]
   userGenre String
 }
