@@ -13,6 +13,6 @@ export class CreateProfileDto {
   ImageURL: string;
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: '0b0f37c9-ea3c-46a8-8663-864a0985d20f' })
+  @ApiProperty({ example: '7d54f5c1-6d36-4732-990a-4dac371b5bc3' })
   userId: string;
 }

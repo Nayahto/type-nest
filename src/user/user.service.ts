@@ -14,11 +14,24 @@ export class UserService {
   }
 
   findAll() {
-    return this.Prisma.user.findMany();
+    return this.Prisma.user.findMany({
+      select: {
+        id: true,
+        userName: true,
+        profile: true,
+      },
+    });
   }
 
   findOne(id: string) {
-    const userIdData = this.Prisma.user.findUnique({ where: { id: id } });
+    const userIdData = this.Prisma.user.findUnique({
+      where: { id: id },
+      select: {
+        id: true,
+        userName: true,
+        profile: true,
+      },
+    });
     return userIdData;
   }
 

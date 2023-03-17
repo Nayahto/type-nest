@@ -17,11 +17,16 @@ export class ProfileService {
   }
 
   findAll() {
-    return this.Prisma.profile.findMany();
+    return this.Prisma.profile.findMany({
+      select: { id: true, Title: true, favorite: { select: { id: true } } },
+    });
   }
 
   findOne(id: string) {
-    return this.Prisma.profile.findUnique({ where: { id: id } });
+    return this.Prisma.profile.findUnique({
+      where: { id: id },
+      select: { id: true, Title: true, favorite: true },
+    });
   }
 
   update(id: string, updateProfileDto: UpdateProfileDto) {

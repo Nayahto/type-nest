@@ -9,7 +9,6 @@ export class GenreService {
   constructor(private readonly Prisma: PrismaService) {}
   create(createGenreDto: CreateGenreDto) {
     const dataGenre: Prisma.genreCreateInput = {
-      User: { connect: { id: createGenreDto.userId } },
       Name: createGenreDto.Name,
       game: {
         connect: createGenreDto.gameId.map((gameId) => ({ id: gameId })),
@@ -19,16 +18,20 @@ export class GenreService {
   }
 
   findAll() {
-    return this.Prisma.genre.findMany();
+    return this.Prisma.genre.findMany({
+      select: { id: true, Name: true, game: true },
+    });
   }
 
   findOne(id: string) {
-    return this.Prisma.genre.findFirst({ where: { id: id } });
+    return this.Prisma.genre.findFirst({
+      where: { id: id },
+      select: { id: true, Name: true, game: true },
+    });
   }
 
   update(id: string, updateGenreDto: UpdateGenreDto) {
     const dataGenre: Prisma.genreCreateInput = {
-      User: { connect: { id: updateGenreDto.userId } },
       Name: updateGenreDto.Name,
       game: {
         connect: updateGenreDto.gameId.map((gameId) => ({ id: gameId })),

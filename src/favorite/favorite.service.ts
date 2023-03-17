@@ -22,14 +22,21 @@ export class FavoriteService {
     return this.Prisma.favorite.findMany({
       select: {
         id: true,
-        game: { select: { id: true } },
-        profile: { select: { id: true } },
+        game: true,
+        profile: { select: { id: true, Title: true } },
       },
     });
   }
 
   findOne(id: string) {
-    return this.Prisma.favorite.findFirst({ where: { id: id } });
+    return this.Prisma.favorite.findFirst({
+      where: { id: id },
+      select: {
+        id: true,
+        game: true,
+        profile: { select: { id: true, Title: true } },
+      },
+    });
   }
 
   update(id: string, updateFavoriteDto: UpdateFavoriteDto) {
